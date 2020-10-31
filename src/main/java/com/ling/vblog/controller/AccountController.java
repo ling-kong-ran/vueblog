@@ -7,16 +7,12 @@ import com.ling.vblog.dto.LoginDto;
 import com.ling.vblog.entity.AjaxResult;
 import com.ling.vblog.entity.User;
 import com.ling.vblog.service.UserService;
-import com.ling.vblog.shiro.JwtToken;
 import com.ling.vblog.utils.JWTUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;

@@ -77,7 +77,7 @@ public class JwtFilter extends AuthenticatingFilter {
         //跨域时会首先发送一个options请求，这里我们给options请求直接返回正常状态
         if (httpServletRequest.getMethod().equals(RequestMethod.OPTIONS.name())){
             httpServletResponse.setStatus(org.springframework.http.HttpStatus.OK.value());
-            return false;
+            return true;
         }
 
         return super.preHandle(request, response);
