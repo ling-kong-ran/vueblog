@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -39,6 +41,7 @@ public class Blog implements Serializable {
     @ApiModelProperty(value = "博客主要内容")
     private String content;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @TableField(fill = FieldFill.INSERT)
     private Date createTime;
 
@@ -59,6 +62,7 @@ public class Blog implements Serializable {
     @NotBlank(message = "标题不能为空")
     private String title;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
 

@@ -3,17 +3,18 @@ package com.ling.vblog.controller;
 
 import cn.hutool.core.lang.Assert;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.ling.vblog.dto.PageDto;
 import com.ling.vblog.entity.AjaxResult;
 import com.ling.vblog.entity.Blog;
 import com.ling.vblog.service.BlogService;
 import com.ling.vblog.utils.ShiroUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -28,11 +29,10 @@ import java.util.Objects;
 public class BlogController {
     @Autowired
     BlogService blogService;
+
     @GetMapping("/blogs")
     public AjaxResult list(@RequestParam(defaultValue = "1") Integer currentPage){
-        Page<Blog> page = new Page<>(currentPage,5);
-        IPage<Blog> blogPage = blogService.page(page, new QueryWrapper<Blog>().orderByDesc("views"));
-        return AjaxResult.success(blogPage);
+        return AjaxResult.success(getPage(currentPage,5));
     }
 
     @GetMapping("/blog/{id}")//select
@@ -65,6 +65,21 @@ public class BlogController {
         blog.setViews(1);
         blogService.save(blog);
         return AjaxResult.success();
+    }
+
+    private PageDto getPage(Integer currentPage,Integer size){
+        int count = blogService.count();
+        if (currentPage<=0){
+            currentPage=0;
+        }
+        int search=size*(currentPage-1);
+        // 1:0 2:5 (currentPage-1)*size
+        //1:0 2:
+        Integer total=count/size==1?2:count/size;
+        List<Blog> blogs= blogService.selectPage(search==0?1:search, size);
+        return new PageDto(total,currentPage,size,blogs);
+        //Page<Blog> page = new Page<>(currentPage,5);
+        //Page<Blog> views = blogService.page(page, new QueryWrapper<Blog>().orderByDesc("views"));
     }
 }
 

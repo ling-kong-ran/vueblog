@@ -16,8 +16,8 @@ public class CrosFilter implements Filter {
         res.setHeader("Access-Control-Allow-Credentials", "true");
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");
-        res.setHeader("Access-Control-Allow-Headers", "Content-Type,X-CAF-Authorization-Token,sessionToken,X-TOKEN");
-        res.setHeader("Content-Type", "application/json;charset=utf-8");
+        res.setHeader("Access-Control-Allow-Headers", "Content-Type,Authentication,X-CAF-Authorization-Token,sessionToken,X-TOKEN");
+        res.setHeader("Content-Type", "application/json;charset=utf-8");//解决前端post请求跨域问题
         //res.setHeader("Access-Control-Allow-Headers", "access-control-allow-origin, authority, content-type, version-info, X-Requested-With");
         if (((HttpServletRequest) servletRequest).getMethod().equals("OPTIONS")) {
             ((HttpServletResponse) servletResponse).setStatus(HttpStatus.OK.value());

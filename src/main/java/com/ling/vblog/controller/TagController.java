@@ -73,9 +73,10 @@ public class TagController {
         }
     }
 
-    @GetMapping
-    public List<Tag> all(int current){
-        int size = 5;
+    @GetMapping("getPage")
+    public List<Tag> all(Integer current){
+        int size = 1;
+        current--;
         int count = tagService.count();
         if (current<0){
             current=0;
@@ -83,6 +84,8 @@ public class TagController {
         if (current>count/size){
             current=count/size;
         }
+        Integer total=count/size;
+        System.out.println(total);
         return tagService.selectPage(current, size);
     }
 }
