@@ -39,6 +39,7 @@ public class BlogController {
     public AjaxResult select(@PathVariable(name = "id") Integer id){
         Blog blog = blogService.getById(id);
         Assert.notNull(blog,"该博客已被删除");
+        blogService.updateView(id);//更新访问次数
         return AjaxResult.success(blog);
     }
     @RequiresAuthentication
@@ -63,7 +64,7 @@ public class BlogController {
         blog.setDeleted(false);
         blog.setUserId(ShiroUtils.getProfile().getId());
         blog.setViews(1);
-        blogService.save(blog);
+        blogService.saveOrUpdate(blog);
         return AjaxResult.success();
     }
 

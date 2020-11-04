@@ -10,6 +10,7 @@ import java.util.Date;
 
 @Component
 public class MybatisObjectHandler implements MetaObjectHandler {
+    //配置自动填充
     @Override
     public void insertFill(MetaObject metaObject) {
         setFieldValByName("createTime",Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()),metaObject);

@@ -39,7 +39,6 @@ public class ShiroConfig {
         defaultSessionManager.setSessionDAO(redisSessionDAO);
         return defaultSessionManager;
     }
-
     //创建安全管理器
     @Bean
     public DefaultWebSecurityManager getSecurityManager(CustomRealm realm,

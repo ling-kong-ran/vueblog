@@ -27,19 +27,20 @@ public class AccountController {
     @PostMapping("/login")
     public AjaxResult login(@Valid @RequestBody LoginDto loginDto, HttpServletResponse response) {
         User user = userService.getOne(new QueryWrapper<User>().eq("username", loginDto.getUsername()));
+        //断言判断用户是否为空
         Assert.notNull(user, "用户不存在");
         String realPassword = new Md5Hash(loginDto.getPassword(), loginDto.getUsername(),1024).toHex();
         if (!user.getPassword().equals(realPassword)) {
             return AjaxResult.error("密码不正确");
         }
+        //生成jwt
         Map<String, String> map = new HashMap<>();
         map.put("id", user.getId().toString());
         map.put("username", user.getUsername());
         map.put("avatar", user.getAvatar());
         map.put("nickname", user.getNickname());
         String jwt = JWTUtils.getToken(map);
-//        JwtToken jwtToken=new JwtToken(jwt);
-//        SecurityUtils.getSubject().login(jwtToken);
+        //将jwt防止response的header中
         response.setHeader("Authentication", jwt);
         response.setHeader("Access-control-Expose-Headers", "Authentication");
         return AjaxResult.success(map);

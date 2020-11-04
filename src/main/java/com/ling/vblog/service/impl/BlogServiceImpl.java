@@ -27,4 +27,9 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
 
         return blogMapper.selectPage(currentPage,size);
     }
+
+    @Override
+    public void updateView(Integer id) {
+        blogMapper.updateView(id);
+    }
 }

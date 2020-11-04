@@ -26,9 +26,11 @@ public class JwtFilter extends AuthenticatingFilter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         String jwt = request.getHeader("Authentication");
         if (StringUtils.isEmpty(jwt)) {
+            //如果jwt为空直接放行,不于拦截
             return null;
         }
         //  JWTUtils.getToken();
+        //jwt不为空返回jwtToken交给shiro管理
         return new JwtToken(jwt);
     }
 

@@ -3,6 +3,7 @@ package com.ling.vblog.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.ling.vblog.entity.Blog;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -16,4 +17,5 @@ import java.util.List;
  */
 public interface BlogService extends IService<Blog> {
     List<Blog> selectPage(Integer currentPage, Integer size);
+    void updateView(@Param("id") Integer id);
 }
