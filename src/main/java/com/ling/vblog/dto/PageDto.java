@@ -4,6 +4,7 @@ import com.ling.vblog.entity.Blog;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 public class PageDto implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -62,6 +63,22 @@ public class PageDto implements Serializable {
 
     public void setPageSize(Integer pageSize) {
         this.pageSize = pageSize;
+    }
+    public static PageDto getPage(Integer count,Integer currentPage,Integer size,List<Blog> blogs){
+        if (currentPage<=0){
+            currentPage=0;
+        }
+        int search=size*(currentPage-1);
+        int total = 0;
+        if (Objects.equals(count, size)){
+            total=1;
+        }
+        if (count>size){
+            total=count/size==1?2:count/size;
+        }
+        // 1:0 2:5 (currentPage-1)*size
+        //1:0 2:
+        return new PageDto(total,currentPage,size,blogs);
     }
 
 }
