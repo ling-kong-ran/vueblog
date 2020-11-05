@@ -19,6 +19,6 @@ public class MybatisObjectHandler implements MetaObjectHandler {
 
     @Override
     public void updateFill(MetaObject metaObject) {
-        setFieldValByName("updateTime",LocalDateTime.now(),metaObject);
+        setFieldValByName("updateTime",Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()),metaObject);
     }
 }

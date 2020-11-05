@@ -17,7 +17,7 @@ import java.util.List;
  * @since 2020-10-28
  */
 public interface BlogMapper extends BaseMapper<Blog> {
-    @Select("select * from blog order by create_time desc limit #{current},#{size}")
+    @Select("select * from blog order by update_time desc limit #{current},#{size}")
     List<Blog> selectPage(@Param("current") int currentPage, @Param("size")  int size);
     @Update("update blog set views = views+1 where id=#{id}")
     void updateView(@Param("id") Integer id);

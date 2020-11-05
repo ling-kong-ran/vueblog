@@ -64,7 +64,7 @@ public class BlogController {
         blog.setDeleted(false);
         blog.setUserId(ShiroUtils.getProfile().getId());
         blog.setViews(1);
-        blogService.saveOrUpdate(blog);
+        blogService.save(blog);
         return AjaxResult.success();
     }
 
@@ -76,8 +76,14 @@ public class BlogController {
         int search=size*(currentPage-1);
         // 1:0 2:5 (currentPage-1)*size
         //1:0 2:
-        Integer total=count/size==1?2:count/size;
-        List<Blog> blogs= blogService.selectPage(search==0?1:search, size);
+        int total = 0;
+        if (count==size){
+            total=1;
+        }
+        if (count>size){
+            total=count/size==1?2:count/size;
+        }
+        List<Blog> blogs= blogService.selectPage(currentPage==1?0:search, size);
         return new PageDto(total,currentPage,size,blogs);
         //Page<Blog> page = new Page<>(currentPage,5);
         //Page<Blog> views = blogService.page(page, new QueryWrapper<Blog>().orderByDesc("views"));
