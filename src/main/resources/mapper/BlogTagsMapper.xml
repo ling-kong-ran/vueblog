@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ling.vblog.mapper.BlogTagsMapper">
+
+    <insert id="addBlogTags" parameterType="list" useGeneratedKeys="false">
+        insert into blog_tags(blogs_id,tags_id,deleted)
+         values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+                #{item.blogsId},
+                #{item.id},
+                #{item.deleted}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteBlogTags">
+        delete from blog_tags where blogs_id=#{blogId}
+    </delete>
+</mapper>

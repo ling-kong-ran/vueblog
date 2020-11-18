@@ -14,7 +14,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 //@ComponentScan("com.ling.vblog.controller")
-public class SwaggerConfig {
+public class   SwaggerConfig {
     //配置swagger
     @Bean
     public Docket createRestApi() {

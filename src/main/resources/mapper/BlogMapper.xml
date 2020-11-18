@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ling.vblog.mapper.BlogMapper">
+    <select id="getOneBlog" parameterType="integer" resultMap="getBlogTagsType">
+         select  b.id ,b.appreciation,b.content ,b.create_time ,
+         b.first_picture,b.flag,b.published,b.recommend,b.share_statement,
+         b.title,b.update_time,b.views,b.type_id,b.user_id,b.description,b.deleted,
+        t.id tid,t.name tname,t.deleted tdel,ty.id ,ty.name,ty.deleted tydel
+         from blog b,blog_tags bt,tag t,type ty
+            where bt.blogs_id =b.id
+         and tags_id=t.id
+         and b.deleted=0
+         and t.deleted=0
+         and bt.deleted=0
+         and ty.deleted=0
+         and b.id=#{id}
+         and b.type_id=ty.id
+    </select>
+
+    <resultMap id="getBlogTagsType"  type="com.ling.vblog.entity.Blog">
+        <id property="id" column="id" />
+        <result property="content" column="content" />
+        <result property="createTime" column="create_time" />
+        <result property="firstPicture" column="first_picture" />
+        <result property="flag" column="flag" />
+        <result property="published" column="published" />
+        <result property="recommend" column="recommend" />
+        <result property="shareStatement" column="share_statement" />
+        <result property="title" column="title" />
+        <result property="updateTime" column="update_time" />
+        <result property="views" column="views" />
+        <result property="typeId" column="type_id" />
+        <result property="userId" column="user_id" />
+        <result property="description" column="description" />
+        <result property="deleted" column="deleted" />
+        <association property="type" javaType="com.ling.vblog.entity.Type">
+            <id property="id" column="id" />
+            <result property="name" column="name" />
+            <result property="deleted" column="tydel" />
+        </association>
+        <collection property="tags" ofType="com.ling.vblog.entity.Tag">
+            <id property="id" column="tid"/>
+            <result property="name" column="tname" />
+            <result property="deleted" column="tdel" />
+        </collection>
+    </resultMap>
+</mapper>

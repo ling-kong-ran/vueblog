@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ling.vblog.entity.BlogTags;
 import com.ling.vblog.mapper.BlogTagsMapper;
 import com.ling.vblog.service.BlogTagsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,5 +18,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class BlogTagsServiceImpl extends ServiceImpl<BlogTagsMapper, BlogTags> implements BlogTagsService {
+    @Autowired
+    BlogTagsMapper blogTagsMapper;
 
 }

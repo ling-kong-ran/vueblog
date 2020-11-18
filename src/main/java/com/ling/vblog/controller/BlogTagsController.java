@@ -1,10 +1,13 @@
 package com.ling.vblog.controller;
 
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.ling.vblog.entity.AjaxResult;
+import com.ling.vblog.entity.BlogTags;
+import com.ling.vblog.service.BlogTagsService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
 
 /**
  * <p>
@@ -15,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2020-10-28
  */
 @RestController
-@RequestMapping("/blog/blog-tags")
 public class BlogTagsController {
 
 }

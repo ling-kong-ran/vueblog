@@ -13,5 +13,4 @@ import com.ling.vblog.entity.Type;
  * @since 2020-10-24
  */
 public interface TypeService extends IService<Type> {
-
 }

@@ -1,6 +1,7 @@
 package com.ling.vblog.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import java.io.Serializable;
@@ -31,6 +32,26 @@ public class Tag implements Serializable {
     @TableLogic
     private Boolean deleted;
 
+    @TableField(exist = false)
+    private Long blogsId;
+
+    public Long getBlogsId() {
+        return blogsId;
+    }
+
+    public Tag() {
+    }
+
+    public Tag(Long id, @NotBlank(message = "不能为空") String name, Boolean deleted, Long blogsId) {
+        this.id = id;
+        this.name = name;
+        this.deleted = deleted;
+        this.blogsId = blogsId;
+    }
+
+    public void setBlogsId(Long blogsId) {
+        this.blogsId = blogsId;
+    }
 
     public Long getId() {
         return id;

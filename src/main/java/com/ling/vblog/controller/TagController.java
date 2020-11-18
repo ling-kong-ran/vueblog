@@ -1,16 +1,18 @@
 package com.ling.vblog.controller;
 
 
+import cn.hutool.core.lang.Assert;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ling.vblog.entity.AjaxResult;
 import com.ling.vblog.entity.Tag;
+import com.ling.vblog.entity.Type;
 import com.ling.vblog.service.TagService;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 /**
  * <p>
@@ -21,49 +23,39 @@ import java.util.List;
  * @since 2020-10-28
  */
 @RestController
-@RequestMapping("/blog/tag")
+
 public class TagController {
     @Autowired
     private TagService tagService;
 
     //@RequiresAuthentication
-    @GetMapping("test")
-    public AjaxResult test(){
+
+    @GetMapping("tags")
+    public AjaxResult list(){
+        return AjaxResult.success(tagService.list());
+    }
+    @GetMapping("tag/{id}")
+    public AjaxResult select(@PathVariable(name = "id") Integer id) {
+        Tag tag = tagService.getById(id);
+        Assert.notNull(tag,"该标签已删除");
+        return AjaxResult.success(tag);
+    }
+    @RequiresAuthentication
+    @PostMapping("tag")
+    public AjaxResult add(@Valid @RequestBody Tag tag) {
+        tagService.save(tag);
         return AjaxResult.success();
     }
 
-    @PostMapping("add")
-    public AjaxResult add(@Valid @RequestBody Tag tag) {
-        try {
-            QueryWrapper<Tag> queryWrapper = new QueryWrapper<>();
-            queryWrapper.eq("name", tag.getName());
-            Tag one = tagService.getOne(queryWrapper);
-            if (ObjectUtils.isEmpty(one)) {
-                tag.setDeleted(false);
-                tagService.save(tag);
-                return AjaxResult.success();
-            } else {
-                throw new RuntimeException("该标签已存在");
-            }
-        } catch (Exception e) {
-            return AjaxResult.error(e.getMessage());
-        }
-
-
-    }
-
-    @DeleteMapping
-    public AjaxResult del(Integer id) {
-        try {
+    @RequiresAuthentication
+    @DeleteMapping("tag/{id}")
+    public AjaxResult delete(@PathVariable(name = "id") Integer id) {
             tagService.removeById(id);
             return AjaxResult.success();
-        } catch (Exception e) {
-            return AjaxResult.error();
-        }
     }
 
-
-    @PutMapping
+    @RequiresAuthentication
+    @PutMapping("tag")
     public AjaxResult update(@Valid @RequestBody Tag tag) {
         try {
             tagService.updateById(tag);
@@ -73,20 +65,6 @@ public class TagController {
         }
     }
 
-    @GetMapping("getPage")
-    public List<Tag> all(Integer current){
-        int size = 1;
-        current--;
-        int count = tagService.count();
-        if (current<0){
-            current=0;
-        }
-        if (current>count/size){
-            current=count/size;
-        }
-        Integer total=count/size;
-        System.out.println(total);
-        return tagService.selectPage(current, size);
-    }
+
 }
 

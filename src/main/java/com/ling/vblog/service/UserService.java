@@ -13,6 +13,5 @@ import com.ling.vblog.entity.User;
  * @since 2020-10-24
  */
 public interface UserService extends IService<User> {
-
     void register(User user);
 }

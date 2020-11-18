@@ -15,6 +15,4 @@ import java.util.List;
  * @since 2020-10-24
  */
 public interface TagService extends IService<Tag> {
-    List<Tag> selectPage(int current, int size);
-
 }

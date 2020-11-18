@@ -39,6 +39,7 @@ public class AccountController {
         map.put("username", user.getUsername());
         map.put("avatar", user.getAvatar());
         map.put("nickname", user.getNickname());
+        map.put("type",user.getType().toString());
         String jwt = JWTUtils.getToken(map);
         //将jwt防止response的header中
         response.setHeader("Authentication", jwt);

@@ -16,6 +16,5 @@ import java.util.List;
  * @since 2020-10-28
  */
 public interface TagMapper extends BaseMapper<Tag> {
-    @Select("select * from tag order by id desc limit #{current},#{size}")
-    List<Tag> selectPage(@Param("current") int current, @Param("size") int size);
+
 }

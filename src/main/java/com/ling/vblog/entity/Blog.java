@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
@@ -78,6 +79,26 @@ public class Blog implements Serializable {
     @TableLogic
     private Boolean deleted;
 
+    @TableField(exist = false)
+    private List<Tag> tags;//一对多关系
+    @TableField(exist = false)
+    private Type type;
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
 
     public Long getId() {
         return id;

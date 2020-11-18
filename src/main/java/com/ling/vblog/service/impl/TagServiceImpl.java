@@ -8,8 +8,6 @@ import com.ling.vblog.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 /**
  * <p>
  *  服务实现类
@@ -22,8 +20,4 @@ import java.util.List;
 public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagService {
     @Autowired
     private TagMapper tagMapper;
-    @Override
-    public List<Tag> selectPage(int current, int size) {
-        return tagMapper.selectPage(current,size);
-    }
 }

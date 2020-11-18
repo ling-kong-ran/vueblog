@@ -27,6 +27,11 @@ public class Type implements Serializable {
     @TableLogic
     private Boolean deleted;
 
+    public Type(Long id, String name, Boolean deleted) {
+        this.id = id;
+        this.name = name;
+        this.deleted = deleted;
+    }
 
     public Long getId() {
         return id;
@@ -38,6 +43,9 @@ public class Type implements Serializable {
 
     public String getName() {
         return name;
+    }
+
+    public Type() {
     }
 
     public void setName(String name) {
